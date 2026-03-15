@@ -34,17 +34,25 @@ export default function RootLayout({
         </Script>
       </head>
 
-      <body>
+      <body className="bg-[#F0F7FF] min-h-screen">
         {/* Google Analytics page view tracker */}
         <GoogleAnalyticsTracker />
 
         <GlobalNavbar />
 
-        <div className="p-20 mx-auto mt-10">
+        {/* AANPASSING HIERONDER:
+          1. 'max-w-screen-xl' zorgt dat de content stopt bij 1280px breedte.
+          2. 'mx-auto' centreert het blok op je scherm.
+          3. 'p-6 md:p-10' vervangt de p-20 voor een betere schaling.
+        */}
+        <div className="max-w-7xl mx-auto p-6 md:p-10 mt-10 mb-24">
           {children}
         </div>
 
-        <div className="fixed bottom-0 left-0 right-0">
+        {/* Zorg dat de footer een hogere z-index heeft zodat hij 
+          niet achter andere elementen verdwijnt 
+        */}
+        <div className="fixed bottom-0 left-0 right-0 z-50">
           <Footer />
         </div>
 

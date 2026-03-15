@@ -102,7 +102,7 @@ export default function SpelPagina() {
       {/* --- RODE TIJDSBALK --- */}
       <AnimatePresence>
         {isPlaying && (
-          <div className="absolute top-0 left-0 w-full h-2 bg-slate-200 z-[70]">
+          <div className="absolute top-0 left-0 w-full h-2 bg-slate-200 z-70">
             <motion.div 
               initial={{ width: "100%" }}
               animate={{ width: `${(gameTimer / 60) * 100}%` }}
@@ -152,7 +152,7 @@ export default function SpelPagina() {
                 </div>
               </div>
               <div className="flex-1 flex justify-center lg:justify-end">
-                <div className="relative w-80 h-[520px] bg-white rounded-[5rem] shadow-2xl border-[12px] border-white flex flex-col items-center justify-center">
+                <div className="relative w-80 h-130 bg-white rounded-[5rem] shadow-2xl border-12 border-white flex flex-col items-center justify-center">
                    <div className="text-6xl mb-4">👤</div>
                    <div className="bg-blue-50 text-blue-600 px-6 py-2 rounded-full font-black uppercase text-[10px]">Klaar voor actie</div>
                 </div>
@@ -165,7 +165,7 @@ export default function SpelPagina() {
       {/* --- 2. ALARM OVERLAY --- */}
       <AnimatePresence>
         {showAlarm && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-center justify-center bg-red-600 overflow-hidden">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-100 flex items-center justify-center bg-red-600 overflow-hidden">
             <div className="relative z-10 text-center text-white px-6">
               <motion.div animate={{ scale: [1, 1.1, 1] }} className="flex justify-center mb-8">
                 <div className="bg-white p-8 rounded-[3rem] text-red-600"><AlertCircle size={80} strokeWidth={3} /></div>
@@ -183,7 +183,7 @@ export default function SpelPagina() {
         {isPlaying && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative w-full h-full flex p-12 gap-10">
             <div className="w-1/3 flex items-center justify-center">
-                <div className="relative w-full h-[600px] bg-white rounded-[5rem] shadow-2xl border-[12px] border-white flex flex-col items-center justify-center">
+                <div className="relative w-full h-150 bg-white rounded-[5rem] shadow-2xl border-12 border-white flex flex-col items-center justify-center">
                     <div className="w-44 h-44 bg-slate-50 rounded-full mb-8 flex items-center justify-center text-6xl opacity-20">👤</div>
                     <div className="bg-blue-50 text-blue-600 px-6 py-2 rounded-full font-black uppercase text-[10px] tracking-[0.2em]">Avatar Plek</div>
                 </div>
@@ -206,7 +206,7 @@ export default function SpelPagina() {
                 <div id="drop-zone" className="h-72 bg-blue-600/10 border-4 border-dashed border-blue-400 rounded-[4rem] flex flex-col items-center justify-center text-blue-500 relative">
                     <div className="bg-blue-500 text-white p-5 rounded-3xl shadow-lg mb-4"><CheckCircle2 size={40} /></div>
                     <span className="font-black uppercase tracking-[0.3em] text-sm">Sleep STORM-kleding hierheen</span>
-                    <motion.div key={score} initial={{ scale: 0.8 }} animate={{ scale: 1 }} className="absolute bottom-8 right-8 bg-white p-6 rounded-[2rem] shadow-xl border border-blue-50 flex flex-col items-center min-w-[120px]">
+                    <motion.div key={score} initial={{ scale: 0.8 }} animate={{ scale: 1 }} className="absolute bottom-8 right-8 bg-white p-6 rounded-[2rem] shadow-xl border border-blue-50 flex flex-col items-center min-w-30">
                         <span className="text-slate-400 font-black uppercase text-[10px] mb-1">Punten</span>
                         <span className="text-4xl font-black italic text-blue-600">{score}</span>
                     </motion.div>
@@ -219,9 +219,9 @@ export default function SpelPagina() {
       {/* --- 4. SCORE SCHERM --- */}
       <AnimatePresence>
         {showScore && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="fixed inset-0 z-[200] flex items-center justify-center bg-[#1A2B4B]/95 backdrop-blur-xl">
-            <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} className="bg-white rounded-[5rem] p-16 max-w-2xl w-full text-center shadow-[0_50px_100px_rgba(0,0,0,0.5)] border-[12px] border-white relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500" />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="fixed inset-0 z-200 flex items-center justify-center bg-[#1A2B4B]/95 backdrop-blur-xl">
+            <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} className="bg-white rounded-[5rem] p-16 max-w-2xl w-full text-center shadow-[0_50px_100px_rgba(0,0,0,0.5)] border-12 border-white relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-4 bg-linear-to-r from-blue-400 via-cyan-300 to-blue-500" />
               <div className="mb-10 inline-flex p-8 bg-yellow-50 rounded-[3rem] text-yellow-500"><Trophy size={100} strokeWidth={1.5} /></div>
               <h2 className="text-5xl font-black italic uppercase text-[#1A2B4B] mb-2">GEWELDIG GEDAAN!</h2>
               <p className="text-slate-400 font-bold uppercase tracking-widest mb-12">De storm is voorbij en je bent veilig.</p>
@@ -251,9 +251,9 @@ export default function SpelPagina() {
           <motion.div 
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
-            className="fixed inset-0 z-[300] bg-[#1A2B4B] flex items-center justify-center p-4 md:p-12"
+            className="fixed inset-0 z-300 bg-[#1A2B4B] flex items-center justify-center p-4 md:p-12"
           >
-            <div className="w-full max-w-7xl h-full max-h-[900px] bg-white rounded-[4rem] shadow-2xl border-[12px] border-white overflow-hidden flex flex-col md:flex-row">
+            <div className="w-full max-w-7xl h-full max-h-225 bg-white rounded-[4rem] shadow-2xl border-12 border-white overflow-hidden flex flex-col md:flex-row">
               
               {/* LINKERKANT: JOUW INFO (Punten & Informatie op schets) */}
               <div className="w-full md:w-1/3 bg-slate-50 p-12 flex flex-col justify-between border-r-4 border-slate-100">
