@@ -39,7 +39,7 @@ export default function RootLayout({
         <GoogleAnalyticsTracker />
 
         {/* De Navbar moet ook binnen de begrenzer vallen */}
-        <div className="max-w-[1200px] mx-auto bg-white shadow-2xl min-h-screen relative overflow-hidden flex flex-col">
+        <div className="max-w-300 mx-auto bg-white shadow-2xl min-h-screen relative overflow-hidden flex flex-col">
           
           <GlobalNavbar />
 

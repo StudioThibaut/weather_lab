@@ -52,63 +52,68 @@ export default function WaaromExperimentPage() {
   const currentSteps = activeTab ? experimentFlow[activeTab as keyof typeof experimentFlow] : [];
 
   return (
-    <main className="fixed inset-0 h-screen w-full bg-[#F0F9FF] md:overflow-hidden overflow-y-auto font-sans select-none text-slate-900">
+    <main className="fixed inset-0 h-screen w-full bg-[#F0F9FF] overflow-hidden font-sans select-none text-slate-900 flex flex-col">
       <GlobalNavbar />
 
-      {/* Padding en gap aangepast voor kleine schermen */}
-      <section className="relative z-10 min-h-full flex flex-col md:flex-row items-center px-6 md:px-16 gap-6 md:gap-12 pt-24 pb-32">
+      <section className="relative z-10 flex-1 flex flex-col md:flex-row items-center px-4 sm:px-8 md:px-16 gap-4 md:gap-12 pt-20 md:pt-24 pb-28 md:pb-32 overflow-y-auto md:overflow-hidden">
         
-        {/* Aside: horizontaal op mobiel, verticaal op desktop */}
-        <aside className={`flex flex-row md:flex-col gap-4 md:gap-6 transition-all duration-700 shrink-0 ${isAnalyzing ? 'opacity-20 blur-sm -translate-y-4 md:translate-y-0 md:-translate-x-5' : 'opacity-100'}`}>
+        {/* Aside: Horizontaal op mobiel, verticaal op desktop */}
+        <aside className={`flex flex-row md:flex-col gap-3 md:gap-6 transition-all duration-700 shrink-0 z-20 ${isAnalyzing ? 'opacity-20 blur-sm -translate-y-4 md:translate-y-0 md:-translate-x-5' : 'opacity-100'}`}>
           {Object.entries(content).map(([key, item]) => (
             <button
               key={key}
               onClick={() => { setActiveTab(key); setIsAnalyzing(false); }}
-              className={`w-16 h-16 md:w-24 md:h-24 rounded-2xl md:rounded-[2.5rem] flex items-center justify-center transition-all duration-500 border-2 md:border-4 shadow-xl shrink-0 ${
+              className={`w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-xl md:rounded-[2.5rem] flex items-center justify-center transition-all duration-500 border-2 md:border-4 shadow-lg md:shadow-xl shrink-0 ${
                 activeTab === key ? "bg-white border-blue-600 text-blue-600 scale-110" : "bg-white/80 border-transparent text-slate-300 hover:text-slate-400"
               }`}
             >
-              <div className="scale-75 md:scale-100">{item.icon}</div>
+              <div className="scale-50 sm:scale-75 md:scale-100">{item.icon}</div>
             </button>
           ))}
         </aside>
 
-        <div className="flex-1 w-full h-full flex items-center">
+        <div className="flex-1 w-full flex items-center h-full">
           <AnimatePresence mode="wait">
             {!activeTab ? (
               <motion.h1 
                 initial={{ opacity: 0, y: 20 }} 
                 animate={{ opacity: 1, y: 0 }} 
-                className="text-5xl sm:text-7xl md:text-[10rem] lg:text-[12rem] font-black italic uppercase tracking-tighter text-slate-900 leading-[0.8] mb-10 md:mb-20 text-center md:text-left w-full"
+                className="text-4xl sm:text-6xl md:text-[8rem] lg:text-[10rem] xl:text-[12rem] font-black italic uppercase tracking-tighter text-slate-900 leading-[0.85] mb-8 md:mb-20 text-center md:text-left w-full"
               >
                 WAAROM <br/><span className="text-blue-600">WERELD?</span>
               </motion.h1>
             ) : (
-              <motion.div key={activeTab} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} className="w-full flex flex-col lg:grid lg:grid-cols-12 gap-6 md:gap-10 h-full items-center">
+              <motion.div 
+                key={activeTab} 
+                initial={{ opacity: 0, x: 30 }} 
+                animate={{ opacity: 1, x: 0 }} 
+                exit={{ opacity: 0, x: -30 }} 
+                className="w-full flex flex-col lg:grid lg:grid-cols-12 gap-4 md:gap-10 items-center lg:h-[75vh]"
+              >
                 
-                {/* Info paneel: Kolom breedte aangepast */}
-                <div className="lg:col-span-4 w-full space-y-6">
-                  <div className="bg-white rounded-3xl md:rounded-[4rem] p-6 md:p-10 shadow-2xl border border-white">
-                    <h2 className="text-3xl md:text-5xl font-black italic uppercase mb-2 md:mb-4 tracking-tighter leading-none text-slate-800">{currentContent?.title}</h2>
-                    <p className="text-sm md:text-lg font-bold text-slate-500 leading-tight mb-6 md:mb-8">{currentContent?.text}</p>
+                {/* Info paneel */}
+                <div className="lg:col-span-4 w-full space-y-4 md:space-y-6">
+                  <div className="bg-white rounded-2xl md:rounded-[4rem] p-5 md:p-10 shadow-xl md:shadow-2xl border border-white">
+                    <h2 className="text-2xl md:text-5xl font-black italic uppercase mb-1 md:mb-4 tracking-tighter leading-none text-slate-800">{currentContent?.title}</h2>
+                    <p className="text-xs md:text-lg font-bold text-slate-500 leading-tight mb-4 md:mb-8">{currentContent?.text}</p>
                     
-                    <div className="space-y-3">
+                    <div className="space-y-2 md:space-y-3">
                       {currentSteps.map((step, idx) => (
                         <motion.div 
                           key={idx}
                           animate={{ 
-                            opacity: isAnalyzing ? (currentStep === idx ? 1 : 0.4) : 0.1,
+                            opacity: isAnalyzing ? (currentStep === idx ? 1 : 0.4) : 0.2,
                             x: isAnalyzing && currentStep === idx ? 10 : 0,
-                            scale: isAnalyzing && currentStep === idx ? 1.05 : 1
+                            scale: isAnalyzing && currentStep === idx ? 1.02 : 1
                           }}
-                          className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-2xl md:rounded-3xl transition-all ${currentStep === idx && isAnalyzing ? 'bg-blue-50 border-2 border-blue-200 shadow-md' : 'border-2 border-transparent'}`}
+                          className={`flex items-center gap-2 md:gap-4 p-2 md:p-4 rounded-xl md:rounded-3xl transition-all ${currentStep === idx && isAnalyzing ? 'bg-blue-50 border-2 border-blue-200' : 'border-2 border-transparent'}`}
                         >
-                          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center shadow-sm shrink-0 border border-slate-100">
-                            {idx < currentStep ? <div className="bg-green-500 rounded-full p-1"><Zap size={14} className="text-white" fill="currentColor" /></div> : <div className="scale-75 md:scale-100">{step.icon}</div>}
+                          <div className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center shadow-sm shrink-0 border border-slate-100">
+                            {idx < currentStep ? <Zap size={12} className="text-green-500 md:w-4 md:h-4" fill="currentColor" /> : <div className="scale-50 md:scale-100">{step.icon}</div>}
                           </div>
                           <div>
-                            <p className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-slate-400">Stap {idx + 1}</p>
-                            <p className={`text-xs md:text-md font-black italic uppercase leading-none ${currentStep === idx && isAnalyzing ? 'text-blue-600' : 'text-slate-400'}`}>{step.label}</p>
+                            <p className="text-[7px] md:text-[10px] font-black uppercase tracking-widest text-slate-400">Stap {idx + 1}</p>
+                            <p className={`text-[10px] md:text-md font-black italic uppercase leading-none ${currentStep === idx && isAnalyzing ? 'text-blue-600' : 'text-slate-400'}`}>{step.label}</p>
                           </div>
                         </motion.div>
                       ))}
@@ -116,10 +121,10 @@ export default function WaaromExperimentPage() {
                   </div>
                 </div>
 
-                {/* Experiment venster: Hoogte aangepast voor mobiel */}
-                <div className="lg:col-span-8 w-full bg-white rounded-3xl md:rounded-[5rem] p-4 md:p-8 shadow-2xl border-2 md:border-4 border-white h-[45vh] md:h-[70vh] flex flex-col relative overflow-hidden">
+                {/* Experiment venster */}
+                <div className="lg:col-span-8 w-full bg-white rounded-2xl md:rounded-[5rem] p-3 md:p-8 shadow-xl md:shadow-2xl border-2 md:border-4 border-white h-[40vh] md:h-full flex flex-col relative overflow-hidden">
                   
-                  <div className={`flex-1 rounded-2xl md:rounded-[4rem] overflow-hidden relative transition-all duration-1000 ${isAnalyzing ? 'bg-linear-to-b from-blue-50 to-white border-2 border-blue-100 shadow-inner' : 'bg-slate-50'}`}>
+                  <div className={`flex-1 rounded-xl md:rounded-[4rem] overflow-hidden relative transition-all duration-1000 ${isAnalyzing ? 'bg-linear-to-b from-blue-50 to-white border-2 border-blue-100' : 'bg-slate-50'}`}>
                     
                     <AnimatePresence mode="wait">
                       {isAnalyzing && (
@@ -128,98 +133,81 @@ export default function WaaromExperimentPage() {
                           initial={{ opacity: 0, scale: 0.95 }} 
                           animate={{ opacity: 1, scale: 1 }} 
                           exit={{ opacity: 0, scale: 1.05 }}
-                          transition={{ duration: 0.6 }}
-                          className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 md:p-12 text-center"
+                          className="absolute inset-0 z-10 flex flex-col items-center justify-center p-4 md:p-12 text-center"
                         >
-                           <div className="relative mb-4 md:mb-6 h-24 md:h-40 flex items-center justify-center">
+                           <div className="relative mb-2 md:mb-6 h-16 md:h-40 flex items-center justify-center">
                               {activeTab === 'wolk' && currentStep === 2 && (
                                 <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 0.3, repeat: Infinity }} className="text-yellow-500">
-                                  <Zap size={100} className="md:w-45 md:h-45" fill="currentColor" />
+                                  <Zap size={60} className="md:w-32 md:h-32" fill="currentColor" />
                                 </motion.div>
                               )}
                               {activeTab === 'water' && currentStep === 0 && (
-                                <motion.div animate={{ y: [0, -30], opacity: [0, 1, 0] }} transition={{ duration: 2, repeat: Infinity }}>
-                                   <Cloud size={80} className="text-blue-300 md:w-32.5 md:h-32.5" />
+                                <motion.div animate={{ y: [0, -20], opacity: [0, 1, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+                                   <Cloud size={50} className="text-blue-300 md:w-24 md:h-24" />
                                 </motion.div>
                               )}
                               {activeTab === 'water' && currentStep === 2 && (
-                                <motion.div animate={{ y: [-15, 30] }} transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}>
-                                   <div className="flex gap-2 md:gap-4">
-                                      <Droplets size={30} className="text-blue-500 md:w-12.5 md:h-12.5" fill="currentColor" />
-                                      <Droplets size={30} className="text-blue-400 mt-6 md:w-12.5 md:h-12.5" fill="currentColor" />
-                                      <Droplets size={30} className="text-blue-600 md:w-12.5 md:h-12.5" fill="currentColor" />
-                                   </div>
+                                <motion.div animate={{ y: [-10, 20] }} transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }} className="flex gap-2">
+                                  <Droplets size={24} className="text-blue-500 md:w-10 md:h-10" fill="currentColor" />
+                                  <Droplets size={24} className="text-blue-400 md:w-10 md:h-10 mt-4" fill="currentColor" />
                                 </motion.div>
                               )}
                               {activeTab === 'wind' && currentStep === 2 && (
-                                <motion.div animate={{ x: [-40, 40] }} transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}>
-                                   <Wind size={90} className="text-blue-400 opacity-60 md:w-37.5 md:h-37.5" />
+                                <motion.div animate={{ x: [-30, 30] }} transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}>
+                                   <Wind size={60} className="text-blue-400 opacity-60 md:w-32 md:h-32" />
                                 </motion.div>
                               )}
                            </div>
                            
-                           <h3 className="text-2xl md:text-5xl font-black italic uppercase tracking-tighter text-slate-800 leading-none">{currentSteps[currentStep].label}</h3>
-                           <p className="text-sm md:text-2xl font-bold text-blue-600 mt-2 md:mt-3 italic max-w-xl leading-tight">
+                           <h3 className="text-lg md:text-5xl font-black italic uppercase tracking-tighter text-slate-800 leading-none">{currentSteps[currentStep].label}</h3>
+                           <p className="text-[10px] md:text-2xl font-bold text-blue-600 mt-1 md:mt-3 italic max-w-xl leading-tight">
                              "{currentSteps[currentStep].desc}"
                            </p>
                         </motion.div>
                       )}
                     </AnimatePresence>
 
-                    {/* Deeltjes animatie */}
+                    {/* Deeltjes */}
                     <div className="absolute inset-0 pointer-events-none">
-                      {[...Array(15)].map((_, i) => (
+                      {[...Array(10)].map((_, i) => (
                         <motion.div
                           key={i}
-                          initial={{ y: Math.random() * 300 }}
+                          initial={{ y: -20 }}
                           animate={{ 
-                            y: isAnalyzing 
-                              ? (activeTab === 'water' && currentStep === 2 ? [0, 400] : 0) 
-                              : 0,
-                            opacity: isAnalyzing ? 0.3 : 0.1
+                            y: isAnalyzing && activeTab === 'water' && currentStep === 2 ? 400 : -20,
+                            opacity: isAnalyzing ? 0.2 : 0
                           }}
-                          transition={{ 
-                            duration: activeTab === 'water' && currentStep === 2 ? 1.2 : 5, 
-                            repeat: Infinity, 
-                            ease: "linear",
-                            delay: i * 0.1 
-                          }}
-                          className="absolute"
-                          style={{ left: `${(i * 7)}%`, top: `-10px` }}
-                        >
-                          <div className={`rounded-full ${isAnalyzing ? 'bg-blue-400 w-4 h-4 md:w-6 md:h-6 blur-sm' : 'bg-slate-300 w-2 h-2 md:w-3 md:h-3'}`} />
-                        </motion.div>
+                          transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.2 }}
+                          className="absolute w-1 h-3 md:w-2 md:h-6 bg-blue-300 rounded-full"
+                          style={{ left: `${i * 10}%` }}
+                        />
                       ))}
                     </div>
                   </div>
 
-                  {/* Controls: Stacked op mobiel */}
-                  <div className="mt-4 md:mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 md:gap-8">
+                  {/* Controls */}
+                  <div className="mt-3 md:mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 md:gap-8">
                     {!isAnalyzing ? (
                       <>
-                        <div className="w-full flex-1 bg-slate-50 p-4 md:p-6 rounded-2xl md:rounded-[2.5rem] border-2 border-white flex items-center gap-4 md:gap-6 shadow-inner">
-                          <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 shrink-0 italic">Kracht:</span>
-                          <input type="range" value={value} onChange={(e) => setValue(parseInt(e.target.value))} className="w-full h-3 md:h-4 bg-white rounded-full appearance-none accent-blue-500 cursor-pointer border border-slate-200" />
-                          <span className="text-lg md:text-2xl font-black italic text-blue-600 w-10 md:w-14">{value}%</span>
+                        <div className="w-full flex-1 bg-slate-50 p-3 md:p-6 rounded-xl md:rounded-[2.5rem] border border-slate-100 flex items-center gap-4 shadow-inner">
+                          <input type="range" value={value} onChange={(e) => setValue(parseInt(e.target.value))} className="w-full h-2 md:h-4 bg-white rounded-full appearance-none accent-blue-500 cursor-pointer border border-slate-200" />
+                          <span className="text-sm md:text-2xl font-black italic text-blue-600 min-w-7.5 md:min-w-15">{value}%</span>
                         </div>
-                        <button onClick={startExperiment} className={`w-full sm:w-auto px-8 md:px-10 py-4 md:py-6 rounded-2xl md:rounded-[2.5rem] bg-linear-to-r ${currentContent?.color} text-white text-lg md:text-xl font-black italic uppercase tracking-widest shadow-xl flex items-center justify-center gap-3 md:gap-4 hover:scale-105 active:scale-95 transition-all`}>
-                          START <Zap size={20} fill="currentColor" />
+                        <button onClick={startExperiment} className={`w-full sm:w-auto px-6 md:px-10 py-3 md:py-6 rounded-xl md:rounded-[2.5rem] bg-linear-to-r ${currentContent?.color} text-white text-sm md:text-xl font-black italic uppercase tracking-widest shadow-lg flex items-center justify-center gap-2 md:gap-4 hover:scale-105 active:scale-95 transition-all`}>
+                          START <Zap size={16} className="md:w-5 md:h-5" fill="currentColor" />
                         </button>
                       </>
                     ) : (
-                      <div className="w-full h-16 md:h-24 bg-blue-50 rounded-2xl md:rounded-[2.5rem] flex items-center px-6 md:px-10 gap-4 md:gap-8 border-2 md:border-4 border-white shadow-lg">
-                        <div className="h-2 md:h-3 flex-1 bg-white rounded-full overflow-hidden border border-blue-100 p-0.5 md:p-1">
+                      <div className="w-full h-12 md:h-24 bg-blue-50 rounded-xl md:rounded-[2.5rem] flex items-center px-4 md:px-10 gap-3 md:gap-8 border-2 border-white shadow-md">
+                        <div className="h-1.5 md:h-3 flex-1 bg-white rounded-full overflow-hidden border border-blue-100">
                            <motion.div 
                              initial={{ width: "0%" }}
                              animate={{ width: `${(currentStep + 1) * 33.3}%` }}
                              transition={{ duration: 5, ease: "linear" }}
-                             className="h-full bg-linear-to-r from-blue-400 to-blue-600 rounded-full shadow-sm" 
+                             className="h-full bg-linear-to-r from-blue-400 to-blue-600 rounded-full" 
                            />
                         </div>
-                        <div className="flex items-center gap-2 md:gap-3 text-blue-600">
-                           <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-blue-600 rounded-full animate-bounce" />
-                           <span className="text-xs md:text-lg font-black italic uppercase tracking-widest whitespace-nowrap">Analyseren...</span>
-                        </div>
+                        <span className="text-[10px] md:text-lg font-black italic uppercase text-blue-600 whitespace-nowrap animate-pulse">Analyseren...</span>
                       </div>
                     )}
                   </div>
